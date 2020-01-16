@@ -1,6 +1,6 @@
 import Particle from './modules/Particle.js';
 
-const lineLen = 200;
+let lineLen = 0;
 
 const init = () => {
     const canvas = document.querySelector('canvas');
@@ -20,10 +20,17 @@ const init = () => {
 
         const setParticles = () => {
             const square = canvas.width * canvas.height;
-            const amount = Math.floor(square / 3e4);
+            const amount = Math.floor(Math.sqrt(square) / 20);
+            const speed = amount / 400;
+
+            const triple = amount * 3;
+
+            lineLen = triple > 500 ? 500 : triple;
+
+            console.log(amount, speed, lineLen);
 
             particles = new Array(amount).fill()
-                .map(() => new Particle(randomX(), randomY()));
+                .map(() => new Particle(randomX(), randomY(), speed));
         };
 
         clearTimeout(timerParticles);
@@ -54,7 +61,7 @@ const init = () => {
 
                 if (distance >= lineLen) continue;
 
-                const opacity = (lineLen - distance) / lineLen;
+                const opacity = ((lineLen - distance) / lineLen) / 2;
 
                 ctx.strokeStyle = hsla(hue, opacity);
 

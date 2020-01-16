@@ -1,7 +1,7 @@
-const speed = .2;
+// const speed = .2;
 
 export default class Particle {
-    constructor(x, y) {
+    constructor(x, y, speed) {
         this.point = [x, y];
         this.speed = speed + Math.random() * speed;
         this.direction = Math.random() * Math.PI * 2;
